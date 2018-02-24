@@ -1,0 +1,7 @@
+{
+    "name": "coinmarketcap-feed",
+    "description": "RSS feed for coinmarketcap.com",
+    "success_url": "/swagger-ui",
+    "repository": "https://github.com/rremizov/coinmarketcap-feed",
+    "keywords": ["coinmarketcap", "cryptocurrency", "feed", "rss"]
+}

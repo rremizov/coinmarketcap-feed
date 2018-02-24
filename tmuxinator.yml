@@ -1,0 +1,7 @@
+project_name: coinmarketcap-feed
+project_root: ~/clojure/coinmarketcap-feed/
+windows:
+  - devserver: lein run
+  - ranger: ranger
+  - shell:
+  - repl: lein repl :connect 7001
