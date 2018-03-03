@@ -23,4 +23,9 @@
        :path-params [ticker :- s/Str]
        :return s/Any
        :summary "Cryptocurrency Market Capitalizations"
-       (ok (feed/daily ticker))))
+       (ok (feed/daily ticker)))
+  (GET "/latest/:ticker/" request
+       :path-params [ticker :- s/Str]
+       :return s/Any
+       :summary "Cryptocurrency Market Capitalizations"
+       (ok (feed/latest ticker))))

@@ -46,14 +46,20 @@
           (:percent-change-7d x)
           newline))
 
-(defn- feed [ticker]
+(defn- feed [ticker render-pub-date]
   (->> (query-api ticker)
-       (map (juxt render-title render-url render-description))
-       (map #(conj % (tc/to-date (t/today))))))
+       (map (juxt render-title render-url render-description render-pub-date))))
 
 (defn daily [ticker]
   (apply vector
          (->RSSChannel (str ticker " Daily")
                        (str "http://localhost/daily/" ticker)
                        (str ticker " Daily"))
-         (map #(apply ->RSSEntry %) (feed ticker))))
+         (map #(apply ->RSSEntry %) (feed ticker (fn [_] (tc/to-date (t/today)))))))
+
+(defn latest [ticker]
+  (apply vector
+         (->RSSChannel (str ticker " Latest")
+                       (str "http://localhost/latest/" ticker)
+                       (str ticker " Latest"))
+         (map #(apply ->RSSEntry %) (feed ticker parse-last-updated))))
