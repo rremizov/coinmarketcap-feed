@@ -9,7 +9,7 @@
             [clj-time.format :as tf]))
 
 (defrecord RSSChannel [title link description])
-(defrecord RSSEntry [title link description pubDate])
+(defrecord RSSEntry [title link description pubDate guid])
 
 (def newline "<br/>")
 
@@ -46,9 +46,17 @@
           (:percent-change-7d x)
           newline))
 
+(defn- render-guid [render-pub-date x]
+  [{:isPermaLink false}
+   (str (render-url x) " at " (render-pub-date x))])
+
 (defn- feed [ticker render-pub-date]
   (->> (query-api ticker)
-       (map (juxt render-title render-url render-description render-pub-date))))
+       (map (juxt render-title
+                  render-url
+                  render-description
+                  render-pub-date
+                  (partial render-guid render-pub-date)))))
 
 (defn daily [ticker]
   (apply vector
