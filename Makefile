@@ -1,7 +1,8 @@
-deploy:
+build:
 	lein with-profile prod uberjar
-	scp -r supervisor.conf $(HOST):/etc/supervisor/conf.d/coinmarketcap-feed.conf
-	scp -r target/uberjar/coinmarketcap-feed.jar $(HOST):/var/www/coinmarketcap-feed.jar
-	ssh $(HOST) touch /etc/supervisor/conf.d/pdf-feed.env
-	ssh $(HOST) sudo supervisorctl reread
-	ssh $(HOST) sudo supervisorctl restart coinmarketcap-feed
+
+docker_build: build
+	docker build -t coinmarketcap-feed -t registry.gitlab.com/rremizov/coinmarketcap-feed .
+
+docker_push: docker_build
+	docker push registry.gitlab.com/rremizov/coinmarketcap-feed
