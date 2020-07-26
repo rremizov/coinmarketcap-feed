@@ -4,6 +4,10 @@ RSS feed for https://coinmarketcap.com/
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
+## Environment Variables
+
+`COINMARKETCAP_API_KEY`: Your [API key](https://coinmarketcap.com/api/documentation/v1/#section/Authentication).
+
 ## Prerequisites
 
 You will need [Leiningen][1] 2.0 or above installed.
